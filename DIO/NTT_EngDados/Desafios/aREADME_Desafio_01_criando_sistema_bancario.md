@@ -64,3 +64,7 @@ Para a 1ª versão do sistema devemos implementar apenas **3 operações**: dep�
         else:
             print("Operação inválida, por favor selecione novamente a operação desejada.")
     ```
+
+## 🤓Desafio Feito😎! Minha resolução🎉🎉🎉:
+> Veja a solução do código no meu git:  
+> 📋[DIO_NTT_EngDados_DESAFIO_01_criando_sistema_bancario.py](https://github.com/Roberto-Pfaltzgraff/estudos_prg-Python/blob/main/DIO/NTT_EngDados/Desafios/DIO_NTT_EngDados_DESAFIO_01_criando_sistema_bancario.py)
