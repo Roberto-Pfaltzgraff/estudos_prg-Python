@@ -35,4 +35,11 @@ Vou implementar 2 códigos para esse desafio 2 do módulo de data e hora, consid
 ## 🤓Desafio Feito😎! Minha resolução🎉🎉🎉:
 > Veja as soluções nos códigos do meu git:  
 > 📋1) [DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData_Minha.py](https://github.com/Roberto-Pfaltzgraff/estudos_prg-Python/blob/main/DIO/NTT_EngDados/Desafios/DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData_Minha.py)  
-> 📋2) [DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData.py](https://github.com/Roberto-Pfaltzgraff/estudos_prg-Python/blob/main/DIO/NTT_EngDados/Desafios/DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData.py)
+> 📋2) [DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData.py](https://github.com/Roberto-Pfaltzgraff/estudos_prg-Python/blob/main/DIO/NTT_EngDados/Desafios/DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData.py)  
+  
+  
+OBS: O template do bootcamp estava com mais funcionalidades do que foi visto até essa etapa.  
+Portanto, volto depois para implementar o desafio também neste código.  
+O desafio está concluído, pois já implementei as funcionalidades do desafio na minha versão 1:  
+[DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData_Minha.py](https://github.com/Roberto-Pfaltzgraff/estudos_prg-Python/blob/main/DIO/NTT_EngDados/Desafios/DIO_NTT_EngDados_DESAFIO_02_criando_sistema_bancario_vData_Minha.py)  
+Vou prosseguir com o treinamento
