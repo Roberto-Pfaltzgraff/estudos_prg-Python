@@ -1,7 +1,7 @@
 # BootCamp DIO & NTT Data Engenharia de Dados com Python 🐍 (*Desafio 02*)
 
 ## 🎯Objetivo:
-Alterar o sistema bancário criando no desafio anterior para implementar 3 funcionalidades, empregando os conhecimentos adquiridos sobre data e hora em Python🐍.  
+Alterar o sistema bancário criado no desafio anterior para implementar 3 funcionalidades, empregando os conhecimentos adquiridos sobre data e hora em Python🐍.  
   
 O intuito é aplicar tudo que foi aprendido até essa etapa.  
   
