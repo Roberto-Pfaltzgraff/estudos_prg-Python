@@ -1,22 +1,25 @@
-# A função len() é um exemplo de polimorfismo
-# pois no 1º caso é passado como parâmetro uma string
-# e o comportamento é contar a quantidade de caracteres desta string.
-# no 2º caso é passado uma lista de valores inteiros
-# e o comportamento é outro, agora contar a quantidade de elementos da lista
-print(len("python"))
-print(len([10, 20, 30]))
+class Cliente:
+    def __init__(self, enderenco):
+        self._endereco = "Rua" #enderenco
+        self._contas = []
+    
+    def realizar_transacao(self, conta, transacao):
+        transacao.registrar(conta)
+    
+    def adicionar_conta(self, conta):
+        self._contas.append(conta)
 
-# Outro exemplo de polimorfismo é a função print()
-# que muda e muito as variações de sua forma, ou seja,
-# as muitas formas de passar paramentro para ela e com tipos diferentes.
-# Ora string, número(inteiro, float, etc), datetime, lista, dicionário, objeto, etc)
-# além de poder receber o usual de 1 parâmentro, nenhum ou muitos
-print(10)
-print()
-print("nome")
-print([10, 20, 30])
-print("Maria", 20, "anos")
+class PessoaFisica(Cliente):
+    def __init__(self, cpf, nome, data_nascimento):
+        self._cpf = cpf
+        self._nome = nome
+        self._data_nascimento = data_nascimento
+        super().__init__("Rua")
 
-# Comentários com anotações especiais
-# TODO: Veja que também não precisa de : TODO
-# Mesma coisa vale para o FIXME também realça
+
+a = PessoaFisica(1, "Roberto", 12)
+print(a._nome)
+print(a._endereco)
+print(a._cpf)
+print(a._contas)
+print(a._data_nascimento)
