@@ -290,6 +290,7 @@ while True:
 
 
 # ***** Começa aqui a POOOOOO *****
+# Definição das Classes
 class Cliente:
     def __init__(self, enderenco):
         self._endereco = enderenco
@@ -307,6 +308,10 @@ class PessoaFisica(Cliente):
         self._cpf = cpf
         self._nome = nome
         self._data_nascimento = data_nascimento
+    
+    def __str__(self):
+        # Quis implementar a listagem de clientes e achei melhor pegar essa ideia do ContaCorrente
+        return f"\nCPF: {self._cpf}\nNome: {self._nome}\nData Nascimento: {self._data_nascimento}\nEndereço: {self._endereco}\n"
 
 class Conta:
     def __init__(self, cliente, numero, agencia="0001"):
@@ -450,6 +455,200 @@ class Historico:
                 "data": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
             }
         )
+
+
+# Funções
+def menu():
+    C_MENU = """\n
+        *************** MENU ***************
+
+        [1] Depositar
+        [2] Sacar
+        [3] Extrato
+        [4] Cadastrar Usuário/Cliente
+        [5] Criar Conta Corrente
+        [6] Listar Clientes
+        [7] Listar Contas
+        [0] Sair
+
+        Digite o número correspondente a opção desejada: """
+    return input(C_MENU.replace(" " * 8, ""))
+
+def fc_ler_valor_monetario(p_mensagem):
+    # Função irá apresentar uma mensagem antes leitura, conforme parâmetro
+    # após digitação do usuário, irá validar a digitação para garantir
+    # que a entrada seja um número monetário
+    while True:
+        str_valor = input(p_mensagem)
+        if not str_valor.replace(".", "", 1).isdigit():
+            print("ATENÇÃO! O valor digitado deve ser numérico.\n      Não pode conter letras e outros caracteres. Apenas digitos e um ponto decimal!")
+            continue
+        else:
+            break
+    return float(f"{float(str_valor):.2f}")
+
+def encontrar_cliente(cpf, clientes):
+    clientes_encontrados = [cpf for cliente in clientes if cliente.cpf == cpf]
+    return clientes_encontrados[0] if clientes_encontrados else None
+
+def recuperar_conta_cliente(cliente):
+    if not cliente.contas:
+        print("Cliente não possui conta!")
+        return
+    
+    # TODO: Implementar futuramente a escolha da conta
+    return cliente.contas[0]
+
+def fc_depositar(clientes):
+    cpf = input("Informe o CPF: ")
+    cliente = encontrar_cliente(cpf, clientes)
+
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
+    
+    valor = fc_ler_valor_monetario("Informe o valor do depósito: R$ ")
+    transacao = Deposito(valor)
+
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+    
+    cliente.realizar_transacao(conta, transacao)
+
+def fc_sacar(clientes):
+    cpf = input("Informe o CPF: ")
+    cliente = encontrar_cliente(cpf, clientes)
+
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
+    
+    valor = fc_ler_valor_monetario("Informe o valor do saque: R$ ")
+    transacao = Saque(valor)
+
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+    
+    cliente.realizar_transacao(conta, transacao)
+
+def fc_exibir_extrato(clientes):
+    C_QTD_CARACTERES_EXTRATO = 70
+    cpf = input("Informe o CPF: ")
+    cliente = encontrar_cliente(cpf, clientes)
+
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
+    
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+    
+    transacoes = conta.historico.transacoes
+
+    # Impressão Extrato
+    extrato = "Extrato Bancário".center(C_QTD_CARACTERES_EXTRATO, "=")  # Cabeçalho
+    if not transacoes: # Conteúdo da movimentação
+        extrato += "\nSua conta bancária não possui movimentações!"
+    else:
+        for transacao in transacoes:
+            extrato += f"\n{transacao['tipo']}: R$ {transacao['valor']:.2f}"
+
+    extrato += ("\n" + ("-" * C_QTD_CARACTERES_EXTRATO))  # Separador
+    extrato += f"\nSeu Saldo atual é de R$ {conta.saldo:.2f}." # Exibindo Saldo
+    extrato += ("\n" + ("=" * C_QTD_CARACTERES_EXTRATO))  # Rodapé
+    print(extrato)
+
+def fc_criar_conta(clientes, contas, numero_conta):
+    cpf = input("Informe o CPF: ")
+    cliente = encontrar_cliente(cpf, clientes)
+
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
+    
+    conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta)
+    contas.append(conta)
+    cliente.contas.append(conta)
+
+    print("Conta criada com sucesso!")
+
+def fc_cadastra_cliente(clientes):
+    cpf = input("Informe o CPF: ")
+    cliente = encontrar_cliente(cpf, clientes)
+
+    if cliente:
+        print("Cliente já cadastrado com este CPF!")
+        return
+    
+    nome = input("Digite o nome do cliente: ")
+    data_nascimento = input("Data de Nascimento (DD/MM/YYYY): ")
+    endereco = input("Endereço (Logradouro, número - Bairro - Cidade - UF): ")
+
+    cliente = PessoaFisica(cpf=cpf, nome=nome, data_nascimento=data_nascimento, endereco=endereco)
+
+    clientes.append(cliente)
+
+    print("Cliente cadastrado com sucesso!")
+
+def fc_listar_clientes(clientes):
+    for cliente in clientes:
+        print(f"{'=' * 70}\n{str(cliente)}\n")
+
+def fc_lisar_contas(contas):
+    for conta in contas:
+        print(f"{'=' * 70}\n{str(conta)}\n")
+
+def fc_sequence_conta():
+    # Função similar a uma sequence de banco para gerar o número sequencial
+    # da conta bancária, começando em 1.
+    v_sequencia = 0
+    while True:
+        v_sequencia += 1
+        yield v_sequencia
+
+def main():
+    clientes = []
+    contas = []
+    v_sequence_numero_conta = fc_sequence_conta()
+    while True:
+        # Laço de interação do Menu
+        opcao_menu = menu()
+
+        if v_opcao_menu == "0":
+            print("Obrigado por ser nosso cliente e utilizar nossos serviços!")
+            break
+
+        elif v_opcao_menu == "1":
+            fc_depositar(clientes)
+        
+        elif v_opcao_menu == "2":
+            fc_sacar(clientes)
+        
+        elif v_opcao_menu == "3":
+            fc_exibir_extrato(clientes)
+        
+        elif v_opcao_menu == "4":
+            fc_cadastra_cliente(clientes)
+
+        elif v_opcao_menu == "5":
+            numero_conta = next(v_sequence_numero_conta)
+            fc_criar_conta(clientes, contas, numero_conta)
+
+        elif v_opcao_menu == "6":
+            fc_listar_clientes(clientes)
+
+        elif v_opcao_menu == "7":
+            fc_lisar_contas(contas)
+
+        else:
+            fc_mensagem_temporizada(p_mensagem="Opção inválida!\nFavor escolher uma das opções numéricas apresentada no menu.",
+                                    p_tempo_em_segundos=C_NUM_SEGUNDOS_TEMPORIZADOR)
+            continue
+            print("Opção inválida!\nFavor escolher uma das opções numéricas apresentada no menu.")
+    return True
 
 
 # *** Programa Principal (POO) ***

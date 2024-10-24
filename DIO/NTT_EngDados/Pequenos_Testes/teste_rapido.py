@@ -16,6 +16,27 @@ class PessoaFisica(Cliente):
         self._data_nascimento = data_nascimento
         super().__init__("Rua")
 
+def menu():
+    C_MENU = """\n
+        *************** MENU ***************
+
+        [1] Depositar
+        [2] Sacar
+        [3] Extrato
+        [4] Cadastrar Usuário/Cliente
+        [5] Criar Conta Corrente
+        [0] Sair
+
+        Digite o número correspondente a opção desejada: """
+    return input(C_MENU.replace(" " * 8, ""))
+
+def main():
+    op = menu()
+    return True
+
+
+# *** Programa Principal (POO) ***
+main()
 
 a = PessoaFisica(1, "Roberto", 12)
 print(a._nome)
