@@ -1,0 +1,3 @@
+1-Essa eh a primeira frase escrita com write()1.
+2-Essa eh a segunda frase escrita com write()2.
+3-Essa eh a terceira frase escrita com write()3.
